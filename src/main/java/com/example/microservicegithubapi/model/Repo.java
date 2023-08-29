@@ -7,9 +7,7 @@ import java.util.Map;
 public class Repo {
 
     private String name;
-
     private String ownerLogin;
-
     private boolean fork;
 
     @SuppressWarnings("unchecked")
