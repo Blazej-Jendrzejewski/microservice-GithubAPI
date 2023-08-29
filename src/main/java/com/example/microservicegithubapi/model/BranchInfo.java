@@ -1,8 +1,12 @@
 package com.example.microservicegithubapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class BranchInfo {
 
     private String name;
+
+    @JsonProperty("commit.sha")
     private String lastCommitSha;
 
     public BranchInfo(String name, String lastCommitSha) {
