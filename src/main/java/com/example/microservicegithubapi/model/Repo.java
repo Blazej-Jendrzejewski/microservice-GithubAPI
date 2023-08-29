@@ -1,14 +1,20 @@
 package com.example.microservicegithubapi.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Repo {
 
     private String name;
-    private String owner;
+
+    @JsonProperty("owner.login")
+    private String login;
+
+    @JsonProperty("fork")
     private boolean isFork;
 
-    public Repo(String name, String owner, boolean isFork) {
+    public Repo(String name, String login, boolean isFork) {
         this.name = name;
-        this.owner = owner;
+        this.login = login;
         this.isFork = isFork;
     }
 
@@ -20,12 +26,12 @@ public class Repo {
         this.name = name;
     }
 
-    public String getOwner() {
-        return owner;
+    public String getLogin() {
+        return login;
     }
 
-    public void setOwner(String owner) {
-        this.owner = owner;
+    public void setLogin(String login) {
+        this.login = login;
     }
 
     public boolean isFork() {
