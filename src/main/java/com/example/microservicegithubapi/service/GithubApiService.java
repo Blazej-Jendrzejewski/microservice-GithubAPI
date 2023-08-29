@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Arrays;
@@ -25,17 +26,23 @@ public class GithubApiService {
     }
 
     public List<Repo> getUserPublicRepos(String username){
-        ResponseEntity<Repo[]> response = restTemplate.getForEntity(
-                githubApiUrl + "/users/" + username +"/repos",Repo[].class);
-        return Arrays.asList(response.getBody());
-
+        try {
+            ResponseEntity<Repo[]> response = restTemplate.getForEntity(
+                    githubApiUrl + "/users/" + username + "/repos", Repo[].class);
+            return Arrays.asList(response.getBody());
+        }catch (HttpClientErrorException e){
+            throw new HttpClientErrorException(e.getStatusCode(),e.getResponseBodyAsString());
+        }
     }
 
-    public List<BranchInfo> getBranchesForRepo(String username, String repoName){
-        ResponseEntity<BranchInfo[]> response = restTemplate.getForEntity(
-                githubApiUrl + "/repos/" + username + "/" + repoName + "/branches", BranchInfo[].class);
-        return Arrays.asList(response.getBody());
+    public List<BranchInfo> getBranchesForRepo(String username, String repoName) {
+        try {
+            ResponseEntity<BranchInfo[]> response = restTemplate.getForEntity(
+                    githubApiUrl + "/repos/" + username + "/" + repoName + "/branches", BranchInfo[].class);
+            return Arrays.asList(response.getBody());
+        } catch (HttpClientErrorException e) {
+            throw new HttpClientErrorException(e.getStatusCode(), e.getResponseBodyAsString());
+        }
+
     }
-
-
 }
