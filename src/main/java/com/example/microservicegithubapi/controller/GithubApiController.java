@@ -1,5 +1,6 @@
 package com.example.microservicegithubapi.controller;
 
+import com.example.microservicegithubapi.model.BranchInfo;
 import com.example.microservicegithubapi.model.Repo;
 import com.example.microservicegithubapi.service.GithubApiService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,10 @@ public class GithubApiController {
         return githubApiService.getUserPublicRepos(username);
     }
 
-
+    @GetMapping("/api/github/repos/{username}/{repoName}/branches")
+    public List<BranchInfo> getBranchesForRepo (@PathVariable String username, @PathVariable String repoName) {
+        return githubApiService.getBranchesForRepo(username, repoName);
+    }
 
 
 }
