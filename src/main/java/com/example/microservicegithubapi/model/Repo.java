@@ -2,20 +2,29 @@ package com.example.microservicegithubapi.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Map;
+
 public class Repo {
 
     private String name;
 
-    @JsonProperty("owner.login")
-    private String login;
+    private String ownerLogin;
 
-    @JsonProperty("fork")
-    private boolean isFork;
+    private boolean fork;
 
-    public Repo(String name, String login, boolean isFork) {
+    @SuppressWarnings("unchecked")
+    @JsonProperty("owner")
+    private void unpackNested(Map<String,Object> owner) {
+        this.ownerLogin = (String)owner.get("login");
+    }
+
+    public Repo() {
+    }
+
+    public Repo(String name, String ownerLogin, boolean fork) {
         this.name = name;
-        this.login = login;
-        this.isFork = isFork;
+        this.ownerLogin = ownerLogin;
+        this.fork = fork;
     }
 
     public String getName() {
@@ -26,20 +35,20 @@ public class Repo {
         this.name = name;
     }
 
-    public String getLogin() {
-        return login;
+    public String getOwnerLogin() {
+        return ownerLogin;
     }
 
-    public void setLogin(String login) {
-        this.login = login;
+    public void setOwnerLogin(String ownerLogin) {
+        this.ownerLogin = ownerLogin;
     }
 
     public boolean isFork() {
-        return isFork;
+        return fork;
     }
 
     public void setFork(boolean fork) {
-        isFork = fork;
+        this.fork = fork;
     }
 }
 
