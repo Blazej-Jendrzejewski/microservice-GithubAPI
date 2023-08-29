@@ -1,5 +1,6 @@
 package com.example.microservicegithubapi.service;
 
+import com.example.microservicegithubapi.model.BranchInfo;
 import com.example.microservicegithubapi.model.Repo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -23,11 +24,17 @@ public class GithubApiService {
         this.restTemplate = restTemplate;
     }
 
-    public List<Repo> getUserPublicRepos(String userName){
+    public List<Repo> getUserPublicRepos(String username){
         ResponseEntity<Repo[]> response = restTemplate.getForEntity(
-                githubApiUrl + "/users/" + userName +"/repos",Repo[].class);
+                githubApiUrl + "/users/" + username +"/repos",Repo[].class);
         return Arrays.asList(response.getBody());
 
+    }
+
+    public List<BranchInfo> getBranchesForRepo(String username, String repoName){
+        ResponseEntity<BranchInfo[]> response = restTemplate.getForEntity(
+                githubApiUrl + "/repos/" + username + "/" + repoName + "/branches", BranchInfo[].class);
+        return Arrays.asList(response.getBody());
     }
 
 
