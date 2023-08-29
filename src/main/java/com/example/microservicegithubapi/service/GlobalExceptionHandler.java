@@ -1,7 +1,6 @@
 package com.example.microservicegithubapi.service;
 
 import com.example.microservicegithubapi.model.ErrorResponse;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
