@@ -10,7 +10,6 @@ public class Repo {
     private String ownerLogin;
     private boolean fork;
 
-    @SuppressWarnings("unchecked")
     @JsonProperty("owner")
     private void unpackNested(Map<String,Object> owner) {
         this.ownerLogin = (String)owner.get("login");

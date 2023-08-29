@@ -2,12 +2,21 @@ package com.example.microservicegithubapi.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.Map;
+
 public class BranchInfo {
 
     private String name;
-
-    @JsonProperty("commit.sha")
     private String lastCommitSha;
+
+
+    @JsonProperty("commit")
+    private void unpackNested(Map<String,Object> commit) {
+        this.lastCommitSha = (String)commit.get("sha");
+    }
+
+    public BranchInfo() {
+    }
 
     public BranchInfo(String name, String lastCommitSha) {
         this.name = name;
